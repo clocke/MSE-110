@@ -158,17 +158,56 @@ void greenLineFollowV2(){
 	}
 }
 
+void correctOrientation(){
+//	resetGyro(S3);
+	//check right
+	repeatUntil(getColorName(Laser) == colorGreen || getGyroDegrees(S3) > 90){
+
+		//resetGyro(S3);
+		//while((getGyroDegrees(S3) >= -90)) {
+		writeDebugStreamLine("%d", getGyroDegrees(S3));
+		turnRight();
+	}
+	//CheckLeft
+	repeatUntil(getColorName(Laser) != colorGreen || getGyroDegrees(S3) < -90){
+		//resetGyro(S3);
+		//while((getGyroDegrees(S3) >= -90)) {
+		writeDebugStreamLine("%d", getGyroDegrees(S3));
+		turnLeft();
+	}//if statement
+}
+
+void greenLineFollowV4(){
+	if (getColorName(Laser) == colorGreen){
+		moveForwardSlow();
+	} else {
+		correctOrientation();
+	}//if statement
+
+}
+
+
 void greenLineFollowV3(){
 	while (true){
-		while (getColorName(Laser) == colorGreen){
-			resetGyro(S3);
+
+		if (getColorName(Laser) == colorGreen){
 			moveForwardSlow();
-		}
-		while(getColorName(Laser) != colorGreen){
-			//resetGyro(S3);
-			//while((getGyroDegrees(S3) >= -90)) {
-			writeDebugStreamLine("%d", getGyroDegrees(S3));
-			turnLeft();
+		} else {
+			if(getColorName(Laser) != colorGreen && getGyroDegrees(S3) > -90){
+				//resetGyro(S3);
+				//while((getGyroDegrees(S3) >= -90)) {
+				writeDebugStreamLine("%d", getGyroDegrees(S3));
+				turnLeft();
+			}
+			if(getColorName(Laser) != colorGreen && getGyroDegrees(S3) < -90){
+				//resetGyro(S3);
+				//while((getGyroDegrees(S3) >= -90)) {
+					writeDebugStreamLine("%d", getGyroDegrees(S3));
+					turnRight();
+			}//if statement
+
+		}//else
+
 			//}
 			//Check Right
 
@@ -193,12 +232,28 @@ void greenLineFollowV3(){
 				turnRight();
 			}*/
 
+	}//while
 
+}//greenfollowline v3
+
+void findGreenLineNoGyro(){
+	while(true){
+		if (getColorName(Laser) == colorGreen){
+			moveForwardSlow();
 		}
+		while (getColorName(Laser) != colorGreen){
+			turnLeft();
+			sleep(3000);
+			turnRight();
+			sleep(6000);
+			stopMovement();
+		}
+
 	}
 
-}
 
+
+}
 
 void findGreenLine(){
 	while(true){
@@ -225,7 +280,11 @@ task main()
 
 	//findGreenLine();
 	//sleep(1000);
-	greenLineFollowV3();
+	resetGyro(S3);
+	//greenLineFollowV3();
+	greenLineFollowV4();
+
+	//findGreenLineNoGyro();
 
 	//greenLineFollow();
 
