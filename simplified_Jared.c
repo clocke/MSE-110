@@ -19,26 +19,26 @@ void checkDistance(){
 	if(getUSDistance(Eyes) < 10) {
 		setMotorSpeed(RightMotor, -30);
 				setMotorSpeed(LeftMotor, 30);
+				sleep(850);
 	}
-    sleep(400);
 }
 
 task main() {
 	while(true) {
 
 		if(getColorName(Laser) == colorGreen) {
-            checkDistance();
+      checkDistance();
 			turnRight();
-			writeDebugStreamLine("GREEN");
+			//writeDebugStreamLine("GREEN");
         //Since the 'colorBlue' keyword doesn't work, check for the absence of white and green.
 		} else if((getColorName(Laser) != colorGreen) && (getColorName(Laser) != colorWhite)) {
-            checkDistance();
+      checkDistance();
 			turnRight();
-			writeDebugStreamLine("BLUE");
+			//writeDebugStreamLine("BLUE");
 		} else {
-            checkDistance();
+      checkDistance();
 			turnLeft();
-			writeDebugStreamLine("WHITE");
+			//writeDebugStreamLine("WHITE");
 		}
 	}
 }
