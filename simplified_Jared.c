@@ -23,6 +23,7 @@ void checkDistance(int n){
 			setMotorSpeed(LeftMotor, 0);
 
 			playTone(440, 200);
+			playTone(440, 20);
 			sleep(2000);
 
 			setMotorSpeed(RightMotor, 50);
@@ -32,6 +33,11 @@ void checkDistance(int n){
 			setMotorSpeed(RightMotor, 0);
 			setMotorSpeed(LeftMotor, 0);
 			playTone(587, 200);
+			sleep(900);
+		} else if(n == 2){
+			setMotorSpeed(RightMotor, 0);
+			setMotorSpeed(LeftMotor, 0);
+			playTone(587, 20);
 			sleep(2000);
 
 			setMotorSpeed(RightMotor, -100);
@@ -40,6 +46,7 @@ void checkDistance(int n){
 			setMotorSpeed(RightMotor, 100);
 			setMotorSpeed(LeftMotor, -100);
 			sleep(600);
+			sleep(100);
 		}
 	}
 }
