@@ -13,13 +13,19 @@ void turnRight(){
 	setMotorSpeed(LeftMotor, 30);
 }
 
-void checkDistance(){
+void checkDistance(string s){
 	//Checking to see if object is within 10 CM
 	//resetGyro(S3);
 	if(getUSDistance(Eyes) < 10) {
-		setMotorSpeed(RightMotor, -30);
-				setMotorSpeed(LeftMotor, 30);
-				sleep(850);
+		if(s == "green") {
+			setMotorSpeed(RightMotor, -30);
+			setMotorSpeed(LeftMotor, 30);
+			sleep(850);
+		} else if(s == "blue") {
+			setMotorSpeed(RightMotor, -30);
+			setMotorSpeed(LeftMotor, 30);
+			sleep(850);
+		}
 	}
 }
 
@@ -27,12 +33,12 @@ task main() {
 	while(true) {
 
 		if(getColorName(Laser) == colorGreen) {
-      checkDistance();
+      checkDistance("green");
 			turnRight();
 			//writeDebugStreamLine("GREEN");
         //Since the 'colorBlue' keyword doesn't work, check for the absence of white and green.
 		} else if((getColorName(Laser) != colorGreen) && (getColorName(Laser) != colorWhite)) {
-      checkDistance();
+      checkDistance("blue");
 			turnRight();
 			//writeDebugStreamLine("BLUE");
 		} else {
